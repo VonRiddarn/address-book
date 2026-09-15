@@ -10,6 +10,6 @@ class Program
 		SceneManager sm = new();
 		sm.Initialize(Scenes.Main);
 
-		Console.WriteLine("Hello, World!");
+		Console.WriteLine("Programmet avslutades utan fel.");
 	}
 }
