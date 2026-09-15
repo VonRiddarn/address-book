@@ -1,6 +1,5 @@
 using System;
 using ConsoleAtHome;
-using ConsoleAtHome.Scenes;
 
 class SMain : IScene
 {

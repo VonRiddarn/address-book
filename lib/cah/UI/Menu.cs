@@ -1,6 +1,8 @@
 using System;
 using System.Text;
 
+namespace ConsoleAtHome;
+
 class Menu(MenuAction[] actions, int indexOffset = 1)
 {
 	readonly int _indexOffset = indexOffset;

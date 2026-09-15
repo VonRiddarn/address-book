@@ -1,5 +1,5 @@
 ﻿using System;
-using ConsoleAtHome.Scenes;
+using ConsoleAtHome;
 
 namespace address_book;
 

@@ -1,4 +1,4 @@
-namespace ConsoleAtHome.Scenes;
+namespace ConsoleAtHome;
 
 abstract record SceneTransition
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ConsoleAtHome.Scenes;
+namespace ConsoleAtHome;
 
 class SceneManager
 {

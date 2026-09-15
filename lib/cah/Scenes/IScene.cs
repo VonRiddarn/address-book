@@ -1,4 +1,4 @@
-namespace ConsoleAtHome.Scenes;
+namespace ConsoleAtHome;
 
 interface IScene
 {
