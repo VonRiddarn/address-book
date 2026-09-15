@@ -3,16 +3,21 @@ using ConsoleAtHome;
 
 class SMain : IScene
 {
-	public void Enter() { }
+	SceneTransition? _deferredTransition;
+
+	public void Enter()
+	{
+		_deferredTransition = null;
+	}
 
 	public void Exit() { }
 
 	public SceneTransition Run()
 	{
 		Menu menu = new(
-			[new("Lägg till kontakt", "ADD"),
-			new("Lista kontakter", "LIST"),
-			new("Avsluta", "EXIT")], indexOffset: 1);
+			[new("Lägg till kontakt", HandleAdd),
+			new("Lista kontakter", HandleList),
+			new("Avsluta", HandleExit)]);
 
 		while (true)
 		{
@@ -20,26 +25,33 @@ class SMain : IScene
 			Console.WriteLine("===== *: Adressboken _* =====");
 			Console.WriteLine(menu.GetIndexedActions());
 
-			string? Identifier = menu.GetActionIdentifier(Cah.Input.ParseLine<int>("Val: "));
+			Action? action = menu.GetAction(Cah.Input.ParseLine<int>("Val: "));
 
-			switch (Identifier)
-			{
-				case "ADD":
-					Console.WriteLine("Add some shit here yo!");
-					break;
-				case "LIST":
-					Console.WriteLine("List some stuff here!");
-					break;
-				case "EXIT":
-					Console.WriteLine("See you later, Schtinky!");
-					break;
-				default:
-					Console.WriteLine("WTF??!");
-					break;
+			if (action != null)
+				action();
+			else
+				Console.WriteLine("Not a valid input!");
 
-			}
-			Console.ReadLine();
+			if (_deferredTransition != null)
+				return _deferredTransition;
+
+			Console.WriteLine("Press any key to continue...");
+			Console.ReadKey();
 		}
 	}
 
+	void HandleAdd()
+	{
+		Console.WriteLine("Lägger till kontakt...");
+	}
+
+	void HandleList()
+	{
+		Console.WriteLine("Listar kontakter...");
+	}
+
+	void HandleExit()
+	{
+		_deferredTransition = new SceneTransition.Pop();
+	}
 }

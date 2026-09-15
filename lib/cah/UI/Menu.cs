@@ -18,15 +18,13 @@ class Menu(MenuAction[] actions, int indexOffset = 1)
 		return _sb.ToString().TrimEnd();
 	}
 
-	public string? GetActionIdentifier(int index)
+	public Action? GetAction(int index)
 	{
 		index -= _indexOffset;
 
 		if (index > _actions.Length || index < 0)
 			return null;
 
-		return _actions[index].Identifier;
+		return _actions[index].Action;
 	}
-
-
 }
