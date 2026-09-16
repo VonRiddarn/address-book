@@ -29,6 +29,8 @@ static class ContactRepository
 			guid = Guid.NewGuid().ToString()[..7];
 		}
 		while (!_contacts.TryAdd(guid, contact));
+
+		SaveContactsToFIle();
 	}
 
 	public static void Clear()
