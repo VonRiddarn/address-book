@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
@@ -7,6 +8,7 @@ using System.Text.Json.Serialization.Metadata;
 static class ContactRepository
 {
 	static readonly Dictionary<string, Contact> _contacts = [];
+	public static ReadOnlyDictionary<string, Contact> Contacts => _contacts.AsReadOnly();
 
 	public static Contact? RemoveContact(string guid)
 	{
