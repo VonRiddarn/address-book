@@ -20,9 +20,11 @@ static class ContactRepository
 
 	public static void AddContact(Contact contact)
 	{
-		// do
-		// Generate GUID
-		// While(!TryAdd(GUID, contact))
+		string guid;
+
+		do
+			guid = Guid.NewGuid().ToString()[..7];
+		while (!_contacts.TryAdd(guid, contact));
 	}
 
 	public static void Clear()
