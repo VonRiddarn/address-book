@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 static class ContactRepository
 {
@@ -31,17 +33,19 @@ static class ContactRepository
 
 	static void SaveContactsToFIle()
 	{
-		// Make JSON from cntact dict
-		// Save JSON to file.
+		string json = JsonSerializer.Serialize<Dictionary<string, Contact>>(_contacts);
+		File.WriteAllText("src/data/contacts.json", json);
 	}
 
-	static Dictionary<int, Contact> InitializeContacts()
+	static Dictionary<string, Contact> InitializeContacts()
 	{
-		// Check if contact file exists...
-		// Initialize using JSON
-		// Send back
-		// Else empty / new
-
-		return [];
+		try
+		{
+			return JsonSerializer.Deserialize<Dictionary<string, Contact>>(File.ReadAllText("src/data/contacts.json")) ?? [];
+		}
+		catch
+		{
+			return [];
+		}
 	}
 }
