@@ -5,48 +5,58 @@ namespace ConsoleAtHome;
 
 class Wizard
 {
+	readonly string? _header = null;
 	readonly StringBuilder _sb = new();
 
 	public Wizard() { }
-	public Wizard(string header) => _sb.AppendLine(header);
+	public Wizard(string header) => _header = header;
 
-	public T? GetNext<T>(string label, string? prefix = null, string? suffix = null) where T : IParsable<T>
+	public T? GetNext<T>(string prompt, string? label = null, string? subLabel = null) where T : IParsable<T>
 	{
-		Console.Clear();
-		Console.Write($"{_sb}");
+		RenderValues();
 
-		T? value = Cah.Input.ParseLine<T>(label);
+		T? value = Cah.Input.ParseLine<T>($"{prompt}");
 
-		_sb.AppendLine($"{prefix}{value}{suffix}");
+		_sb.AppendLine($"{label}{value}{subLabel}");
 
 		return value;
 	}
 
-	public string GetNext(string label, string? prefix = null, string? suffix = null)
+	public string GetNext(string prompt, string? label = null, string? subLabel = null)
 	{
-		Console.Clear();
-		Console.Write($"{_sb}\n{label}");
+		RenderValues();
+		Console.Write($"{prompt}");
 
 		string value = Console.ReadLine() ?? string.Empty;
 
-		_sb.AppendLine($"{prefix}{value}{suffix}");
+		_sb.AppendLine($"{label}{value}{subLabel}");
 
 		return value;
 	}
 
-	public int GetNext(string label, string[] choices, bool showAlternatives = true, string? prefix = null, string? suffix = null)
+	public int GetNext(string prompt, string[] choices, bool showAlternatives = true, string? label = null, string? subLabel = null)
 	{
-		Console.Clear();
-		Console.Write($"{_sb}");
+		RenderValues(includeHeader: true);
 
 		if (showAlternatives)
 			for (int i = 0; i < choices.Length; i++)
 				Console.WriteLine($"* {choices[i]}");
 
-		int value = Cah.Input.ParseCustom(label, choices);
+		int value = Cah.Input.ParseCustom($"{prompt}", choices);
 
-		_sb.AppendLine($"{prefix}{value}{suffix}");
+		_sb.AppendLine($"{label}{value}{subLabel}");
 
 		return value;
+	}
+
+	public void RenderValues(bool includeHeader = true, bool clear = true)
+	{
+		if (clear)
+			Console.Clear();
+
+		if (includeHeader)
+			Console.WriteLine(_header);
+
+		Console.Write($"{_sb}");
 	}
 }
