@@ -9,21 +9,21 @@ class SCreateContact : IScene
 
 	public SceneTransition Run()
 	{
+
 		Wizard builder = new("== *: Skapa kontakt :* ==");
+		string name;
+		string number;
 
-		string name = builder.GetNext("Namn: ", "Namn: ");
-		int age = builder.GetNext<int>("Ålder: ", "Ålder: ", " år");
-		int friends = builder.GetNext<int>("Antal vänner: ", "Du har: ", " vänner!");
+		do
+		{
+			name = builder.GetNext("Namn: ", "Namn: ");
+			number = builder.GetNext("Telefonnumer: ", "Telefonnumer: ");
 
+			builder.RenderValues();
+		} while (!Cah.Input.ParseYesNo("Stämmer detta? (Ja / Nej)"));
 
-		builder.RenderValues(includeHeader: true);
+		ContactRepository.AddContact(new(name, number));
 
-		Console.ReadKey();
-
-		Console.Clear();
-		Console.WriteLine($"{name} | {age} -- {friends}");
-
-		Console.ReadKey();
 		return new SceneTransition.Pop();
 	}
 }
