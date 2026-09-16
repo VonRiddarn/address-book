@@ -6,8 +6,6 @@ using System.Text.Json.Serialization.Metadata;
 
 static class ContactRepository
 {
-
-	// GUID
 	static readonly Dictionary<string, Contact> _contacts = [];
 
 	public static Contact? RemoveContact(string guid)
@@ -21,9 +19,15 @@ static class ContactRepository
 	public static void AddContact(Contact contact)
 	{
 		string guid;
+		int tries = 0;
 
 		do
+		{
+			if (++tries >= 50)
+				throw new Exception("Failed to add contact after 50 tries.");
+
 			guid = Guid.NewGuid().ToString()[..7];
+		}
 		while (!_contacts.TryAdd(guid, contact));
 	}
 
