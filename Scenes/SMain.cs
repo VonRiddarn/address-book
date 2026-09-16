@@ -42,7 +42,7 @@ class SMain : IScene
 
 	void HandleAdd()
 	{
-		Console.WriteLine("Lägger till kontakt...");
+		_deferredTransition = new SceneTransition.Push(Scenes.CreateContact);
 	}
 
 	void HandleList()
