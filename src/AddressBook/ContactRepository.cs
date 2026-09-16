@@ -7,7 +7,7 @@ using System.Text.Json.Serialization.Metadata;
 
 static class ContactRepository
 {
-	static readonly Dictionary<string, Contact> _contacts = [];
+	static readonly Dictionary<string, Contact> _contacts = InitializeContacts();
 	public static ReadOnlyDictionary<string, Contact> Contacts => _contacts.AsReadOnly();
 
 	public static Contact? RemoveContact(string guid)
