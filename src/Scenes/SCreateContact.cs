@@ -9,13 +9,12 @@ class SCreateContact : IScene
 
 	public SceneTransition Run()
 	{
-
-		Wizard builder = new("== *: Skapa kontakt :* ==");
 		string name;
 		string number;
 
 		do
 		{
+			Wizard builder = new("== *: Skapa kontakt :* ==");
 			name = builder.GetNext("Namn: ", "Namn: ");
 			number = builder.GetNext("Telefonnumer: ", "Telefonnumer: ");
 
