@@ -47,7 +47,7 @@ class SMain : IScene
 
 	void HandleList()
 	{
-		Console.WriteLine("Listar kontakter...");
+		_deferredTransition = new SceneTransition.Push(Scenes.ListCOntacts);
 	}
 
 	void HandleExit()
